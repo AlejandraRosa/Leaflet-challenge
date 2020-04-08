@@ -23,7 +23,7 @@ function geoJson(earthquakeJson) {
 let earthquakeArray = new Array();
   // loop through earthquake data to obtain details, coordinates and append to array
   for (var i = 0; i < earthquakeJson.length; i++) {
-    coordinates = [earthquakeJson[i].geometry.coordinates[1],earthquakeJson[i].geometry.coordinates[0]]
+    mapCoordinate = [earthquakeJson[i].geometry.coordinates[1],earthquakeJson[i].geometry.coordinates[0]]
     properties = earthquakeJson[i].properties;
     // color of circles will depend on earthquake magnitude
     var color = "FFFFFF";
@@ -42,11 +42,11 @@ let earthquakeArray = new Array();
     else if (properties.mag < 5.00) {
       color = "#dd4e2a";}
     // Add circles to map
-    let chooseColor = L.circle(coordinates, {
-      fillOpacity: 0.6,
+    let chooseColor = L.circle(mapCoordinate, {
+      fillOpacity: 0.5,
       color: color,
       fillColor: color,
-      radius: (properties.mag * 1000)
+      radius: properties.mag * 2000
     //create pop-up
     }).bindPopup(properties.place + " " + properties.mag);
     // add the cricle to the array
