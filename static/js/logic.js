@@ -52,13 +52,12 @@ let earthquakeArray = new Array();
     // add the cricle to the array
     earthquakeArray.push(chooseColor);
   }
-  //layer for the circles
-  let earthquakes = L.layerGroup(earthquakeArray);
-  // set basemap
   let baseMap = {
     "Street Map": streetmap,
     "Dark Map": darkmap
   };
+  //layer for the circles
+  let earthquakes = L.layerGroup(earthquakeArray);
   // overlay layer
   let overlayMap = {
     Earthquakes: earthquakes
