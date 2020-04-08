@@ -1,5 +1,5 @@
 // url
-var earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+let earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 // get GeoJSON data
 d3.json(earthquakeURL, function(data) {
   geoJson(data.features);
@@ -7,20 +7,20 @@ d3.json(earthquakeURL, function(data) {
 //function to extract data
 function geoJson(earthquakeJson) {
   // Adding Tile layer for both street map and dark map
-  var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  let streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "mapbox.streets",
     accessToken: API_KEY
   });
-  var darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  let darkmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "mapbox.dark",
     accessToken: API_KEY
   });
 //create empty array to hold earthquake data
-var earthquakeArray = new Array();
+let earthquakeArray = new Array();
   // loop through earthquake data to obtain details, coordinates and append to array
   for (var i = 0; i < earthquakeJson.length; i++) {
     coordinates = [earthquakeJson[i].geometry.coordinates[1],earthquakeJson[i].geometry.coordinates[0]]
@@ -42,7 +42,7 @@ var earthquakeArray = new Array();
     else if (properties.mag < 5.00) {
       color = "#dd4e2a";}
     // Add circles to map
-    var chooseColor = L.circle(coordinates, {
+    let chooseColor = L.circle(coordinates, {
       fillOpacity: 0.6,
       color: color,
       fillColor: color,
@@ -53,18 +53,18 @@ var earthquakeArray = new Array();
     earthquakeArray.push(chooseColor);
   }
   //layer for the circles
-  var earthquakes = L.layerGroup(earthquakeArray);
+  let earthquakes = L.layerGroup(earthquakeArray);
   // set basemap
-  var baseMap = {
+  let baseMap = {
     "Street Map": streetmap,
     "Dark Map": darkmap
   };
   // overlay layer
-  var overlayMap = {
+  let overlayMap = {
     Earthquakes: earthquakes
   };
   // create map and add layers
-  var myMap = L.map("map", {
+  let myMap = L.map("map", {
     center: [39.5, -98.35],
     zoom: 4,
     layers: [streetmap,earthquakes]
